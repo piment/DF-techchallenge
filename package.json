@@ -1,0 +1,19 @@
+{
+  "name": "df-techchallenge",
+  "version": "1.0.0",
+  "description": "Tech Challenge for Sogeti Digital Factory",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piment/DF-techchallenge.git"
+  },
+  "author": "Romain MURA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piment/DF-techchallenge/issues"
+  },
+  "homepage": "https://github.com/piment/DF-techchallenge#readme"
+}
