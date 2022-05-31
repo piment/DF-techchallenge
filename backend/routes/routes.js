@@ -1,5 +1,6 @@
 const uid = require('uid').uid;
 const express = require('express');
+const Joi = require('joi');
 
 const router = express.Router();
 
@@ -34,6 +35,11 @@ let todos = [
   },
 ];
 
+const todoSchema = Joi.object().keys({
+  title: Joi.string().min(1).max(50).required(),
+  desc: Joi.string().min(10).max(500).allow(''),
+});
+
 router.get('/api', (req, res) => {
   res.status(200).send({ message: 'API OK' });
 });
@@ -42,18 +48,17 @@ router.get('/api/todo', (req, res) => {
   res.status(200).json(todos);
 });
 
-router.post('/api/todo', (req, res) => {
-  const { title, desc } = req.body;
-  if (title === undefined || desc === undefined) {
-    res
-      .status(400)
-      .json({ message: 'Error, the body need to have title and desc' });
-  } else {
+router.post('/api/todo', async (req, res) => {
+  const { title, desc = '' } = req.body;
+  try {
+    const value = await todoSchema.validateAsync({ title, desc });
     const id = uid();
     const created = Date.now();
-    const newTodo = { id, title, desc, created, done: false };
+    const newTodo = { ...value, id, created, done: false };
     todos.push(newTodo);
     res.status(201).json(newTodo);
+  } catch (error) {
+    res.status(400).json({ error: error.name, message: error.message });
   }
 });
 
