@@ -9,7 +9,13 @@ router.get('/api', (req, res) => {
 });
 
 router.get('/api/todo', (req, res) => {
-  const todos = Todo.getTodo()
+  const todos = Todo.getAllTodos()
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).send(error));
+});
+
+router.get('/api/todo/:id', (req, res) => {
+  const todos = Todo.getTodo(req.params.id)
     .then((data) => res.status(200).json(data))
     .catch((error) => res.status(500).send(error));
 });
@@ -21,19 +27,24 @@ router.post('/api/todo', async (req, res) => {
       const id = uid();
       const created = Date.now();
       const newTodo = { title, desc, created };
-      Todo.create(newTodo);
-      res.status(201).json(newTodo);
+      Todo.create(newTodo)
+        .then(() => res.status(201).json(newTodo))
+        .catch((error) => res.status(500).json(error));
     })
     .catch((error) => {
-      res.status(400).json({ error: error.name, message: error.message });
+      res.status(500).json({ error: error.name, message: error.message });
     });
 });
 
 router.put('/api/todo/:id', (req, res) => {
   const { id } = req.params;
   Todo.update(id, req.body)
-    .then((todo) => {
-      res.status(201).json(todo);
+    .then((result) => {
+      if (result) {
+        res.sendStatus(204);
+      } else {
+        res.status(500).send('Error on updating todo');
+      }
     })
     .catch((error) => {
       res.status(500).json({ error });

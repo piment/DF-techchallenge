@@ -1,8 +1,7 @@
-const sqlite3 = require('sqlite3').verbose();
 const Joi = require('joi');
 
-const db = new sqlite3.Database('todos.sqlite');
-const table = db.run(
+const db = require('better-sqlite3')('todos.db');
+const table = db.exec(
   'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, desc TEXT(500) NULL, done TINYINT(1) DEFAULT 0, created INTEGER NOT NULL)'
 );
 if (table) {
@@ -55,43 +54,72 @@ const validate = ({ title, desc }) => {
   });
 };
 
-const getTodo = () => {
+const getTodo = (id) => {
   return new Promise((resolve, reject) => {
-    const values = db.all('SELECT * FROM todos', (err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data);
-    });
+    // db.all('SELECT * FROM todos WHERE id = ?', [id], (err, data) => {
+    //   if (err) {
+    //     console.log('error', err);
+    //     return reject(err);
+    //   }
+    //   if (!data.length) {
+    //     return reject('Not Founded');
+    //   }
+    //   return resolve(data[0]);
+    // });
+    const query = db.prepare('SELECT * from todos WHERE id = ?').get(id);
+    if (!query) {
+      return reject(err);
+    }
+    return resolve(query);
+  });
+};
+
+const getAllTodos = () => {
+  return new Promise((resolve, reject) => {
+    const values = db.prepare('SELECT * FROM todos').all();
+    //    (err, data) => {
+    //     if (err) {
+    //       return reject(err);
+    //     }
+    //     return resolve(data);
+    //   });
+    return resolve(values);
   });
 };
 
 const create = (data) => {
-  console.log('data', data);
-  const query = db.run(
-    'INSERT INTO todos (title, desc, created) VALUES(?, ?, ?)',
-    [data.title, data.desc, data.created]
-  );
+  return new Promise((resolve, reject) => {
+    const query = db
+      .prepare('INSERT INTO todos (title, desc, created) VALUES(?, ?, ?)')
+      .run(data.title, data.desc, data.created);
+    if (query.changes) {
+      return resolve();
+    }
+    return reject(query);
+  });
 };
 
 const update = (id, data) => {
   return new Promise((resolve, reject) => {
-    // TODO Need to retrieve specific object, change properties and send it back for update
-    const query = db.run('UPDATE todos SET ? WHERE id = 2', [data]);
-    console.log(query);
-    todoIndex = todosList.findIndex((todo) => todo.id === id);
-    console.log(todoIndex);
-    if (todoIndex === -1) {
-      return reject(`No todo founded with id: ${id}`);
-    }
-    todosList[todoIndex] = { ...todosList[todoIndex], ...data };
-    return resolve(todosList[todoIndex]);
+    getTodo(id)
+      .then((todo) => {
+        newTodo = { ...todo, ...data };
+        const todoParsed = Object.entries(newTodo)
+          .map(([key, value], id) => `${key} = '${value}'`)
+          .join(', ');
+        const query = db
+          .prepare(`UPDATE todos SET ${todoParsed} WHERE id = ${id}`)
+          .run();
+        return resolve(query.changes);
+      })
+      .catch((error) => reject(`No todo founded with id: ${id}`));
   });
 };
 
 module.exports = {
   todosList,
   getTodo,
+  getAllTodos,
   validate,
   create,
   update,
