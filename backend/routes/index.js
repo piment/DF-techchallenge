@@ -9,8 +9,9 @@ router.get('/api', (req, res) => {
 });
 
 router.get('/api/todo', (req, res) => {
-  const todos = Todo.getTodo();
-  res.status(200).json(todos);
+  const todos = Todo.getTodo()
+    .then((data) => res.status(200).json(data))
+    .catch((error) => res.status(500).send(error));
 });
 
 router.post('/api/todo', async (req, res) => {
@@ -19,7 +20,7 @@ router.post('/api/todo', async (req, res) => {
     .then(() => {
       const id = uid();
       const created = Date.now();
-      const newTodo = { title, desc, id, created, done: false };
+      const newTodo = { title, desc, created };
       Todo.create(newTodo);
       res.status(201).json(newTodo);
     })

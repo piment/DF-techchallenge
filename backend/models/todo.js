@@ -1,4 +1,13 @@
+const sqlite3 = require('sqlite3').verbose();
 const Joi = require('joi');
+
+const db = new sqlite3.Database('todos.sqlite');
+const table = db.run(
+  'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, desc TEXT(500) NULL, done TINYINT(1) DEFAULT 0, created INTEGER NOT NULL)'
+);
+if (table) {
+  console.log(table, 'Database opened correctly');
+}
 
 const todoSchema = Joi.object().keys({
   title: Joi.string().min(1).max(50).required(),
@@ -47,15 +56,29 @@ const validate = ({ title, desc }) => {
 };
 
 const getTodo = () => {
-  return todosList;
+  return new Promise((resolve, reject) => {
+    const values = db.all('SELECT * FROM todos', (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    });
+  });
 };
 
 const create = (data) => {
-  todosList.push(data);
+  console.log('data', data);
+  const query = db.run(
+    'INSERT INTO todos (title, desc, created) VALUES(?, ?, ?)',
+    [data.title, data.desc, data.created]
+  );
 };
 
 const update = (id, data) => {
   return new Promise((resolve, reject) => {
+    // TODO Need to retrieve specific object, change properties and send it back for update
+    const query = db.run('UPDATE todos SET ? WHERE id = 2', [data]);
+    console.log(query);
     todoIndex = todosList.findIndex((todo) => todo.id === id);
     console.log(todoIndex);
     if (todoIndex === -1) {
