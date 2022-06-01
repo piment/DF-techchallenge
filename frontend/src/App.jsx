@@ -1,14 +1,12 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Layout from './components/Layout';
+import './App.scss';
+import TodosList from './components/TodosList';
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1>Hello to Another Todo App!</h1>
-      </header>
-    </div>
+    <Layout>
+      <TodosList />
+    </Layout>
   );
 }
 
