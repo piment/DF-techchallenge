@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+
+  &-header {
+    padding: 1rem 0;
+    background-color: #3b424e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+
+    h1 {
+      line-height: 1;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.Todo {
+  background-color: #3b424e;
+  border: 1px solid white;
+  margin: 1rem;
+  z-index: 0;
+  position: relative;
+
+  &-close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    z-index: 1;
+  }
+}
