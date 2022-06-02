@@ -12,26 +12,63 @@ function TodosList() {
       .catch((error) => console.log(error));
   };
 
-  const handleDelete = (e) => {
-    const id = e.target.parentNode.parentNode.id;
+  const handleDelete = (id) => {
     axios
       .delete(`http://localhost:5000/api/todo/${id}`)
       .then((result) => getTodos())
       .catch((error) => console.log(error));
   };
 
+  const handleDone = (id) => {
+    const currentTodo = todos.filter((todo) => todo.id == id)[0];
+    axios
+      .put(`http://localhost:5000/api/todo/${id}`, {
+        done: currentTodo.done ? 0 : 1,
+      })
+      .then((result) => getTodos())
+      .catch((error) => console.log(error));
+  };
+
+  const getUndone = () => {
+    return todos
+      .filter((todo) => !todo.done)
+      .sort((current, next) => current.created - next.created)
+      .map((todo) => (
+        <TodoItem
+          key={todo.id}
+          {...todo}
+          handleDelete={handleDelete}
+          handleDone={handleDone}
+        />
+      ));
+  };
+
+  const getDone = () => {
+    return todos
+      .filter((todo) => todo.done)
+      .sort((current, next) => current.created - next.created)
+      .map((todo) => (
+        <TodoItem
+          key={todo.id}
+          {...todo}
+          handleDelete={handleDelete}
+          handleDone={handleDone}
+        />
+      ));
+  };
+
   useEffect(() => {
     getTodos();
   }, []);
+
   return (
-    <ul>
-      {todos &&
-        todos
-          .sort((current, next) => current.created - next.created)
-          .map((todo) => (
-            <TodoItem key={todo.id} {...todo} handleDelete={handleDelete} />
-          ))}
-    </ul>
+    <div className='Todolist'>
+      <h2>To Do</h2>
+      <ul> {todos && getUndone()}</ul>
+      <span className='separator'></span>
+      <h2>Done</h2>
+      <ul>{todos && getDone()}</ul>
+    </div>
   );
 }
 
