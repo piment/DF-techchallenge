@@ -8,6 +8,7 @@ function TodoItem({
   created,
   done,
   handleDelete,
+  handleEdit,
   handleDone,
 }) {
   const dateFromTimestamp = (timestamp) => {
@@ -22,12 +23,11 @@ function TodoItem({
       >
         {done ? <ImCheckmark /> : <ImCross />}
       </span>
-      <p>{desc}</p>
       <p>{dateFromTimestamp(created)}</p>
       {!done ? (
         <>
           <span className='Todo-edit'>
-            <AiFillEdit onClick={() => handleDelete(id)} />
+            <AiFillEdit onClick={() => handleEdit(id)} />
           </span>
           <span className='Todo-close'>
             <AiFillDelete onClick={() => handleDelete(id)} />
