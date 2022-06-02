@@ -2,9 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoItem from './TodoItem';
 import { useNavigate } from 'react-router-dom';
+import Modal from './Modal';
+import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 
 function TodosList() {
   const [todos, setTodos] = useState();
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
 
   const getTodos = () => {
@@ -69,11 +73,15 @@ function TodosList() {
 
   return (
     <div className='Todolist'>
+      <span className='add' onClick={() => setShowModal(true)}>
+        add a new todo &nbsp; <AiOutlineAppstoreAdd />
+      </span>
       <h2>To Do</h2>
       <ul> {todos && getUndone()}</ul>
       <span className='separator'></span>
       <h2>Done</h2>
       <ul>{todos && getDone()}</ul>
+      {showModal && <Modal show={{ showModal, setShowModal }} />}
     </div>
   );
 }

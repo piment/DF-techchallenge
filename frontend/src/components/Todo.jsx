@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams, Link } from 'react-router-dom';
+import { AiFillCloseSquare } from 'react-icons/ai';
 
 function Todo() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [todo, setTodo] = useState();
 
   const handleChange = () => {
@@ -25,6 +27,9 @@ function Todo() {
   return (
     todo && (
       <div className='Todo-card'>
+        <span className='close'>
+          <AiFillCloseSquare onClick={() => navigate('/DF-techchallenge')} />
+        </span>
         <label htmlFor='title'>
           TITLE
           <input
