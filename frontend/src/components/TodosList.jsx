@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoItem from './TodoItem';
+import { useNavigate } from 'react-router-dom';
 
 function TodosList() {
   const [todos, setTodos] = useState();
+  const navigate = useNavigate();
 
   const getTodos = () => {
     axios
@@ -29,6 +31,9 @@ function TodosList() {
       .catch((error) => console.log(error));
   };
 
+  const handleEdit = (id) => {
+    navigate('/DF-techchallenge/' + id);
+  };
   const getUndone = () => {
     return todos
       .filter((todo) => !todo.done)
@@ -39,6 +44,7 @@ function TodosList() {
           {...todo}
           handleDelete={handleDelete}
           handleDone={handleDone}
+          handleEdit={handleEdit}
         />
       ));
   };
