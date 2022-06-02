@@ -36,6 +36,8 @@ body {
 .Todolist {
   min-height: 100vh;
   border: 1px solid #282c34;
+  display: flex;
+  flex-direction: column;
   h2 {
     text-transform: uppercase;
   }
@@ -58,7 +60,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: clamp(1rem, 6vw, 2rem);
+      font-size: clamp(1.5rem, 3vw, 2rem);
       overflow-wrap: break-word;
       position: relative;
       left: 2.5rem;
@@ -80,6 +82,7 @@ body {
       left: 0;
       top: 0;
       z-index: 1;
+      cursor: pointer;
       &:hover {
         background-color: rgb(190, 189, 189);
         color: #3b424e;
@@ -98,6 +101,7 @@ body {
       right: 0;
       top: 0;
       z-index: 1;
+      cursor: pointer;
       &:hover {
         background-color: rgb(190, 189, 189);
         color: #3b424e;
@@ -115,6 +119,7 @@ body {
       right: 0;
       top: 50%;
       z-index: 1;
+      cursor: pointer;
       &:hover {
         background-color: rgb(190, 189, 189);
         color: #3b424e;
@@ -131,6 +136,7 @@ body {
     font-size: 1.5rem;
     text-transform: uppercase;
     margin-bottom: 1rem;
+    cursor: pointer;
   }
 }
 
@@ -155,6 +161,7 @@ body {
 .Todo-card {
   background-color: #3b424e;
   margin: 0 2rem;
+  max-width: 500px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -169,6 +176,7 @@ body {
     top: 0.2rem;
     font-size: 1.5rem;
     color: #9aadcf;
+    cursor: pointer;
   }
 
   label {
@@ -194,6 +202,7 @@ body {
     padding: 0.5rem 0.7rem;
     color: white;
     box-shadow: 0 1px 2px #282c34;
+    cursor: pointer;
   }
 }
 
@@ -218,5 +227,30 @@ body {
       font-size: 1.5rem;
       color: #9aadcf;
     }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .Todolist main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    section {
+      width: 50%;
+    }
+  }
+
+  .Todo-card {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .Modal {
+    padding-top: 10%;
   }
 }

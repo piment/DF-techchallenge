@@ -76,11 +76,17 @@ function TodosList() {
       <span className='add' onClick={() => setShowModal(true)}>
         add a new todo &nbsp; <AiOutlineAppstoreAdd />
       </span>
-      <h2>To Do</h2>
-      <ul> {todos && getUndone()}</ul>
-      <span className='separator'></span>
-      <h2>Done</h2>
-      <ul>{todos && getDone()}</ul>
+      <main>
+        <section>
+          <h2>To Do</h2>
+          <ul> {todos && getUndone()}</ul>
+        </section>
+        <section>
+          <span className='separator'></span>
+          <h2>Done</h2>
+          <ul>{todos && getDone()}</ul>
+        </section>
+      </main>
       {showModal && <Modal show={{ showModal, setShowModal }} />}
     </div>
   );
