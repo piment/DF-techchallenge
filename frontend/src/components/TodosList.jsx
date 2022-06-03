@@ -13,14 +13,14 @@ function TodosList() {
 
   const getTodos = () => {
     axios
-      .get('http://localhost:5000/api/todo')
+      .get('https://ata.mura.io/api/todo')
       .then((data) => setTodos(data.data))
       .catch((error) => console.log(error));
   };
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/api/todo/${id}`)
+      .delete(`https://ata.mura.io/api/todo/${id}`)
       .then((result) => getTodos())
       .catch((error) => console.log(error));
   };
@@ -28,7 +28,7 @@ function TodosList() {
   const handleDone = (id) => {
     const currentTodo = todos.filter((todo) => todo.id == id)[0];
     axios
-      .put(`http://localhost:5000/api/todo/${id}`, {
+      .put(`https://ata.mura.io/api/todo/${id}`, {
         done: currentTodo.done ? 0 : 1,
       })
       .then((result) => getTodos())

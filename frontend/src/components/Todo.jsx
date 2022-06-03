@@ -11,7 +11,7 @@ function Todo() {
 
   const handleChange = () => {
     axios
-      .put(`http://localhost:5000/api/todo/${id}`, todo)
+      .put(`https://ata.mura.io/api/todo/${id}`, todo)
       .then(() => {
         setTodo(todo);
       })
@@ -20,7 +20,7 @@ function Todo() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/todo/${id}`)
+      .get(`https://ata.mura.io/api/todo/${id}`)
       .then((data) => setTodo(data.data))
       .catch((err) => console.log(err));
   }, []);
