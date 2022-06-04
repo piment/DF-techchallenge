@@ -9,7 +9,7 @@ function Modal({ show }) {
   const handleChange = () => {
     console.log(todo);
     axios
-      .post(`http://localhost:5000/api/todo`, todo)
+      .post(`https://ata.mura.io/api/todo`, todo)
       .then((result) => {
         console.log(result);
         setShowModal(false);
