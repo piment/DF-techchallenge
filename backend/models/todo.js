@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const db = require('better-sqlite3')('./todos.db');
+const db = require('better-sqlite3')('todos.db');
 const table = db.exec(
   'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, desc TEXT(500) NULL, done TINYINT(1) DEFAULT 0, created INTEGER NOT NULL)'
 );
