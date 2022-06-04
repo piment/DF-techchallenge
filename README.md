@@ -4,7 +4,7 @@
 
 => [Github Pages](https://piment.github.io/DF-techchallenge/) to see the frontend app.
 
-techno used : React, NodeJS, Express.js, Jest/Supertest
+techno used : React, NodeJS, Express.js, Jest/Supertest, Joi, SQLITE3, NGINX, PM2, 
 
 ---
 

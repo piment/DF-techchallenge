@@ -13,7 +13,7 @@ function Todo() {
     axios
       .put(`https://ata.mura.io/api/todo/${id}`, todo)
       .then(() => {
-        setTodo(todo);
+        navigate('/DF-techchallenge', { replace: true });
       })
       .catch((error) => console.log(error));
   };

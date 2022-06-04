@@ -41,6 +41,10 @@ body {
   h2 {
     text-transform: uppercase;
   }
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
   .Todo {
     background-color: #3b424e;
     box-shadow: 0 1px 2px #1f2127;
@@ -253,4 +257,8 @@ body {
   .Modal {
     padding-top: 10%;
   }
+}
+
+.order-2 {
+  order: 2;
 }

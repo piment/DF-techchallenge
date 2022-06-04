@@ -10,7 +10,7 @@ if (table) {
 
 const todoSchema = Joi.object().keys({
   title: Joi.string().min(1).max(50).required(),
-  desc: Joi.string().min(10).max(500).allow(''),
+  desc: Joi.string().min(0).max(500).allow(''),
 });
 
 let todosList = [
@@ -56,16 +56,6 @@ const validate = ({ title, desc }) => {
 
 const getTodo = (id) => {
   return new Promise((resolve, reject) => {
-    // db.all('SELECT * FROM todos WHERE id = ?', [id], (err, data) => {
-    //   if (err) {
-    //     console.log('error', err);
-    //     return reject(err);
-    //   }
-    //   if (!data.length) {
-    //     return reject('Not Founded');
-    //   }
-    //   return resolve(data[0]);
-    // });
     const query = db.prepare('SELECT * from todos WHERE id = ?').get(id);
     if (!query) {
       return reject(err);
@@ -116,6 +106,16 @@ const update = (id, data) => {
   });
 };
 
+const remove = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = db.prepare('DELETE FROM todos WHERE id = ?').run(id);
+    if (query.changes) {
+      return resolve();
+    }
+    return reject(query);
+  });
+};
+
 module.exports = {
   todosList,
   getTodo,
@@ -123,4 +123,5 @@ module.exports = {
   validate,
   create,
   update,
+  remove,
 };

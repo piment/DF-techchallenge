@@ -50,4 +50,10 @@ router.put('/api/todo/:id', (req, res) => {
       res.status(500).json({ error });
     });
 });
+
+router.delete('/api/todo/:id', (req, res) => {
+  Todo.remove(req.params.id)
+    .then(() => res.sendStatus(200))
+    .catch((err) => res.status(500).send(err));
+});
 module.exports = router;
