@@ -13,7 +13,7 @@ function Todo() {
     axios
       .put(`http://localhost:5000/api/todo/${id}`, todo)
       .then(() => {
-        setTodo(todo);
+        navigate('/DF-techchallenge', { replace: true });
       })
       .catch((error) => console.log(error));
   };

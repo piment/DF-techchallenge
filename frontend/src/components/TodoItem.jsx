@@ -26,16 +26,16 @@ function TodoItem({
       <p>{dateFromTimestamp(created)}</p>
       {!done ? (
         <>
-          <span className='Todo-edit'>
-            <AiFillEdit onClick={() => handleEdit(id)} />
+          <span className='Todo-edit' onClick={() => handleEdit(id)}>
+            <AiFillEdit />
           </span>
-          <span className='Todo-close'>
-            <AiFillDelete onClick={() => handleDelete(id)} />
+          <span className='Todo-close' onClick={() => handleDelete(id)}>
+            <AiFillDelete />
           </span>
         </>
       ) : (
-        <span className='Todo-close closed'>
-          <AiFillDelete onClick={() => handleDelete(id)} />
+        <span className='Todo-close closed' onClick={() => handleDelete(id)}>
+          <AiFillDelete  />
         </span>
       )}
     </div>
