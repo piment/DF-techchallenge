@@ -4,13 +4,13 @@
 
 _techno used : React, NodeJS, Express.js, Sass, Jest/[Supertest](https://www.npmjs.com/package/supertest), [Joi](https://joi.dev/), SQLITE3, NGINX, [PM2](https://pm2.keymetrics.io/)_
 
-**The Frontend application is deployed on Github page : https://piment.github.io/DF-techchallenge/**
+#### The Frontend application is deployed on Github page : https://piment.github.io/DF-techchallenge/
 
-- I choosed to use ReactJS for this application, because I tought this library was well adapted for this kind of application, and it's the library I actually learn.
-- One of the instructions was to host the frontend on Github page for the client to can see it and follow the development, so I use [gh-pages](https://www.npmjs.com/package/gh-pages) npm package that let me deploy the builded application directly from the CLI.
+- I choosed to use ReactJS for this application, because I thought this library was well adapted for this kind of application, and it's the library I actually learn.
+- One of the instructions was to host the frontend on Github page for the client to see it and follow the development, so I used [gh-pages](https://www.npmjs.com/package/gh-pages) npm package that let me build and deploy the application directly from the CLI.
 - I also choosed not to use pre-made CSS libraries like Bootstrap, because instructions said to keep the UI simple, and it also was a manner to show a bit of my CSS (SASS) skills.
 
-**The Backend API is host on my private server : https://ata.mura.io/**
+#### The Backend API is host on my private server : https://ata.mura.io/
 
 - I arleady have a private server for others projects, host my personnal website, and test things, so I choosed to use it to host the backend part of this project.
 - I used my own domain name to create a subdomain, link the API, and used NGINX to serve it.
