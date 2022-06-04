@@ -4,8 +4,10 @@ import TodoItem from './TodoItem';
 import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
+const api_url = import.meta.env.MODE === 'development' ? 'http://localhost:5000' : 'https://ata.mura.io';
 
 function TodosList() {
+  console.log(api_url);
   const [todos, setTodos] = useState();
   const [showModal, setShowModal] = useState(false);
 
@@ -13,14 +15,14 @@ function TodosList() {
 
   const getTodos = () => {
     axios
-      .get('https://ata.mura.io/api/todo')
+      .get(api_url + '/api/todo')
       .then((data) => setTodos(data.data))
       .catch((error) => console.log(error));
   };
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://ata.mura.io/api/todo/${id}`)
+      .delete(api_url + `/api/todo/${id}`)
       .then((result) => getTodos())
       .catch((error) => console.log(error));
   };
@@ -28,7 +30,7 @@ function TodosList() {
   const handleDone = (id) => {
     const currentTodo = todos.filter((todo) => todo.id == id)[0];
     axios
-      .put(`https://ata.mura.io/api/todo/${id}`, {
+      .put(api_url + `/api/todo/${id}`, {
         done: currentTodo.done ? 0 : 1,
       })
       .then((result) => getTodos())

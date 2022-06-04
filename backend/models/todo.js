@@ -13,37 +13,6 @@ const todoSchema = Joi.object().keys({
   desc: Joi.string().min(0).max(500).allow(''),
 });
 
-let todosList = [
-  {
-    id: '47bc8793241',
-    title: 'first todo',
-    desc: 'Make a first todo',
-    done: false,
-    created: 1653688704307,
-  },
-  {
-    id: '7bc87932415',
-    title: 'finish tech challenge',
-    desc: 'Do all the US to finish the technical challenge',
-    done: false,
-    created: 1653688704308,
-  },
-  {
-    id: 'bc879324151',
-    title: 'Have some sleep',
-    desc: 'Take some sleep to keep a good health',
-    done: false,
-    created: 1653688704309,
-  },
-  {
-    id: 'c879324151e',
-    title: 'Eat something and drink water',
-    desc: "Don't forget to eat food and drink a lot of water",
-    done: false,
-    created: 1653688704310,
-  },
-];
-
 const validate = ({ title, desc }) => {
   return new Promise((resolve, reject) => {
     const error = todoSchema.validate({ title, desc }).error;
@@ -67,12 +36,6 @@ const getTodo = (id) => {
 const getAllTodos = () => {
   return new Promise((resolve, reject) => {
     const values = db.prepare('SELECT * FROM todos').all();
-    //    (err, data) => {
-    //     if (err) {
-    //       return reject(err);
-    //     }
-    //     return resolve(data);
-    //   });
     return resolve(values);
   });
 };
@@ -117,7 +80,6 @@ const remove = (id) => {
 };
 
 module.exports = {
-  todosList,
   getTodo,
   getAllTodos,
   validate,

@@ -1,17 +1,19 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AiFillCloseSquare } from 'react-icons/ai';
+const api_url = import.meta.env.MODE === 'development' ? import.meta.env.VITE_API_URL : 'https://ata.mura.io';
 
 function Todo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [todo, setTodo] = useState();
 
-  const handleChange = () => {
+  const handleChange = (e) => {
+    e.preventDefault();
     axios
-      .put(`https://ata.mura.io/api/todo/${id}`, todo)
+      .put(api_url + `/api/todo/${id}`, todo)
       .then(() => {
         navigate('/DF-techchallenge', { replace: true });
       })
@@ -20,7 +22,7 @@ function Todo() {
 
   useEffect(() => {
     axios
-      .get(`https://ata.mura.io/api/todo/${id}`)
+      .get(api_url + `/api/todo/${id}`)
       .then((data) => setTodo(data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -51,9 +53,7 @@ function Todo() {
           ></textarea>
         </label>
 
-        <Link to='/DF-techchallenge/'>
           <button onClick={handleChange}>SAVE</button>
-        </Link>
       </div>
     )
   );

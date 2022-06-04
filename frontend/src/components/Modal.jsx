@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { AiFillCloseSquare } from 'react-icons/ai';
+const api_url = import.meta.env.VITE_API_URL;
 
 function Modal({ show }) {
   const { showModal, setShowModal } = show;
   const [todo, setTodo] = useState({ title: '', desc: '' });
 
   const handleChange = () => {
-    console.log(todo);
     axios
-      .post(`https://ata.mura.io/api/todo`, todo)
-      .then((result) => {
-        console.log(result);
+      .post(api_url + `/api/todo`, todo)
+      .then(() => {
         setShowModal(false);
-        setTodo({ title: '', desc: '' });
       })
       .catch((error) => console.log(error));
   };
