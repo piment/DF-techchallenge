@@ -15,6 +15,7 @@ function Todo() {
 
   const handleChange = (e) => {
     e.preventDefault();
+    console.log(todo);
     axios
       .put(api_url + `/api/todo/${id}`, todo)
       .then(() => {
@@ -60,6 +61,24 @@ function Todo() {
               value={todo.desc}
               onChange={(e) => setTodo({ ...todo, desc: e.target.value })}
             ></textarea>
+          </label>
+          <label htmlFor='category'>
+            CATEGORY
+            <select
+              name='category'
+              id='category'
+              onChange={(e) => setTodo({ ...todo, category: e.target.value })}
+            >
+              <option value='home' selected={todo.category === 'home'}>
+                Home
+              </option>
+              <option value='pro' selected={todo.category === 'pro'}>
+                Pro
+              </option>
+              <option value='family' selected={todo.category === 'family'}>
+                Family
+              </option>
+            </select>
           </label>
           <div className='button-set'>
             <button className='add' onClick={handleChange}>
