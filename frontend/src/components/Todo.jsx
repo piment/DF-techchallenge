@@ -23,15 +23,22 @@ function Todo() {
       .catch((error) => console.log(error));
   };
 
+  const handleDelete = () => {
+    axios
+      .delete(api_url + `/api/todo/${id}`)
+      .then((result) => navigate('/DF-techchallenge', { replace: true }))
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     axios
       .get(api_url + `/api/todo/${id}`)
       .then((data) => setTodo(data.data))
-      .catch((err) => console.log(err));
+      .catch((err) => navigate('/DF-techchallenge', { replace: true }));
   }, []);
   return (
     todo && (
-      <div className="Modal">
+      <div className='Modal'>
         <div className='Todo-card'>
           <h3>Edit Todo</h3>
           <label htmlFor='title'>
@@ -55,8 +62,20 @@ function Todo() {
             ></textarea>
           </label>
           <div className='button-set'>
-            <button className="add" onClick={handleChange}>SAVE</button>
-            <button className="cancel" onClick={() => navigate('/DF-techchallenge')}>CANCEL</button>
+            <button className='add' onClick={handleChange}>
+              SAVE
+            </button>
+            <button
+              className='cancel'
+              onClick={() => navigate('/DF-techchallenge')}
+            >
+              CANCEL
+            </button>
+          </div>
+          <div className='button-set'>
+            <button className='delete' onClick={handleDelete}>
+              DELETE
+            </button>
           </div>
         </div>
       </div>

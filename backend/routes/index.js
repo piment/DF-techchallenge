@@ -25,12 +25,13 @@ router.get('/api/todo/:id', (req, res) => {
 });
 
 router.post('/api/todo', async (req, res) => {
-  const { title, desc = '' } = req.body;
-  Todo.validate({ title, desc })
+  const { title, category, desc = '' } = req.body;
+  Todo.validate({ title, desc, category })
     .then(() => {
       const id = uid();
       const created = Date.now();
-      const newTodo = { title, desc, created };
+      const newTodo = { title, desc, created, category };
+
       Todo.create(newTodo)
         .then(() => res.status(201).json(newTodo))
         .catch((error) => res.status(500).json(error));

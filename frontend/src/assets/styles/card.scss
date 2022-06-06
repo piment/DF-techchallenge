@@ -74,7 +74,6 @@ $orange: #dfcb62;
       padding-left: 2.5%;
       margin-bottom: 0.3rem;
       font-size: 1.5rem;
-      
     }
     .cards-list {
       display: flex;
@@ -87,21 +86,21 @@ $orange: #dfcb62;
       margin: 0 auto 1rem auto;
       width: 95%;
 
-      .card-item-green {
+      .card-item-home {
         @include colorSet($green);
       }
 
-      .card-item-red {
+      .card-item-pro {
         @include colorSet($red);
       }
 
-      .card-item-orange {
+      .card-item-family {
         @include colorSet($orange);
       }
     }
 
     &:first-of-type {
-      border-bottom: 1px solid #BBB;
+      border-bottom: 1px solid #bbb;
       padding-bottom: 1rem;
       margin-bottom: 1rem;
     }

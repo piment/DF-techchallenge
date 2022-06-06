@@ -8,7 +8,7 @@ const api_url =
 
 function Modal({ show }) {
   const { showModal, setShowModal } = show;
-  const [todo, setTodo] = useState({ title: '', desc: '' });
+  const [todo, setTodo] = useState({ title: '', desc: '', category: 'home' });
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -19,12 +19,10 @@ function Modal({ show }) {
       })
       .catch((error) => console.log(error));
   };
-
   return (
     <div className='Modal'>
-      
       <form className='Todo-card' onSubmit={handleChange}>
-      <h2>Create a new Todo</h2>
+        <h2>Create a new Todo</h2>
         <label htmlFor='title'>
           TITLE
           <input
@@ -48,9 +46,27 @@ function Modal({ show }) {
             placeholder='optionnal'
           ></textarea>
         </label>
+        <label htmlFor='category'>
+          CATEGORY
+          <select
+            name='category'
+            id='category'
+            onChange={(e) => setTodo({ ...todo, category: e.target.value })}
+          >
+            <option value='home'>Home</option>
+            <option value='pro'>Pro</option>
+            <option value='family'>Family</option>
+          </select>
+        </label>
         <div className='button-set'>
-          <button type='submit' className='add'>Add</button>
-          <button type='button' className='cancel' onClick={() => setShowModal(false)}>
+          <button type='submit' className='add'>
+            Add
+          </button>
+          <button
+            type='button'
+            className='cancel'
+            onClick={() => setShowModal(false)}
+          >
             Cancel
           </button>
         </div>

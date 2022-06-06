@@ -92,7 +92,7 @@ function TodosList() {
                 handleDelete={handleDelete}
                 handleDone={handleDone}
                 handleEdit={handleEdit}
-                category='orange'
+                category={todo.category}
               />
             ))}
         </ul>
@@ -108,7 +108,7 @@ function TodosList() {
                 handleDelete={handleDelete}
                 handleDone={handleDone}
                 handleEdit={handleEdit}
-                category='orange'
+                category={todo.category}
               />
             ))}
         </ul>

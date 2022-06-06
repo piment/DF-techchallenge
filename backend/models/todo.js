@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const db = require('better-sqlite3')('todos.db');
 const table = db.exec(
-  'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, desc TEXT(500) NULL, done TINYINT(1) DEFAULT 0, created INTEGER NOT NULL)'
+  'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, desc TEXT(500) NULL, done TINYINT(1) DEFAULT 0, created INTEGER NOT NULL, category VARCHAR(50) NOT NULL)'
 );
 if (table) {
   console.log(table, 'Database opened correctly');
@@ -11,11 +11,12 @@ if (table) {
 const todoSchema = Joi.object().keys({
   title: Joi.string().min(1).max(50).required(),
   desc: Joi.string().min(0).max(500).allow(''),
+  category: Joi.string().valid('home', 'pro', 'family').required(),
 });
 
-const validate = ({ title, desc }) => {
+const validate = ({ title, desc, category }) => {
   return new Promise((resolve, reject) => {
-    const error = todoSchema.validate({ title, desc }).error;
+    const error = todoSchema.validate({ title, desc, category }).error;
     if (error) {
       return reject(error);
     }
@@ -42,9 +43,12 @@ const getAllTodos = () => {
 
 const create = (data) => {
   return new Promise((resolve, reject) => {
+    console.log('data', data);
     const query = db
-      .prepare('INSERT INTO todos (title, desc, created) VALUES(?, ?, ?)')
-      .run(data.title, data.desc, data.created);
+      .prepare(
+        'INSERT INTO todos (title, desc, created, category) VALUES(?, ?, ?, ?)'
+      )
+      .run(data.title, data.desc, data.created, data.category);
     if (query.changes) {
       return resolve();
     }

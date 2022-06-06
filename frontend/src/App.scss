@@ -1,5 +1,5 @@
-@import "./assets/styles/card.scss";
-@import "./assets/styles/modal.scss";
+@import './assets/styles/card.scss';
+@import './assets/styles/modal.scss';
 
 $green: #84bd6a;
 $red: #f86262;
@@ -19,7 +19,7 @@ body {
 
 .App {
   text-align: center;
-  background-color: #EDEAEA;
+  background-color: #edeaea;
   min-height: 100vh;
   color: white;
   display: flex;
@@ -52,6 +52,7 @@ body {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
+  margin-bottom: 0.6rem;
 
   button {
     width: 45%;
@@ -69,6 +70,10 @@ body {
   .cancel {
     background-color: $red;
   }
+
+  .delete {
+    background-color: $orange;
+  }
 }
 
 @media screen and (min-width: 700px) {
@@ -85,7 +90,9 @@ body {
         display: flex;
         justify-content: center;
         align-items: stretch;
-        .card-item-green, .card-item-orange, .card-item-red {
+        .card-item-home,
+        .card-item-pro,
+        .card-item-family {
           width: 45%;
           height: auto;
           .card-item-logo {
@@ -120,4 +127,3 @@ body {
     padding-top: 10%;
   }
 }
-
