@@ -35,11 +35,13 @@ $orange: #dfcb62;
     svg {
       background-color: rgba($color: #fff, $alpha: 0.2);
       border-radius: 50%;
+      cursor: pointer;
     }
   }
 
   h3 {
     font-size: 6vw;
+    cursor: pointer;
   }
 }
 
@@ -72,6 +74,7 @@ $orange: #dfcb62;
       padding-left: 2.5%;
       margin-bottom: 0.3rem;
       font-size: 1.5rem;
+      
     }
     .cards-list {
       display: flex;
@@ -117,6 +120,7 @@ $orange: #dfcb62;
     border-top: 1px solid white;
     box-shadow: 0 -2px 0px rgba($color: #000, $alpha: 0.2);
     text-transform: uppercase;
+    cursor: pointer;
   }
 }
 
