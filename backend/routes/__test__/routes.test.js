@@ -14,9 +14,11 @@ describe('Testing API routes', () => {
   });
 
   it('Should return status code 201 on /todo post request if todo object is passed', async () => {
-    const res = await request(app)
-      .post('/api/todo')
-      .send({ title: 'first todo', desc: 'todo description' });
+    const res = await request(app).post('/api/todo').send({
+      title: 'first todo',
+      desc: 'todo description',
+      category: 'home',
+    });
     expect(res.status).toEqual(201);
     expect(typeof res.body).toEqual('object');
     expect(res.body.id !== undefined).toEqual(true);

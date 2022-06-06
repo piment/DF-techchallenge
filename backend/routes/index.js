@@ -33,7 +33,7 @@ router.post('/api/todo', async (req, res) => {
       const newTodo = { title, desc, created, category };
 
       Todo.create(newTodo)
-        .then(() => res.status(201).json(newTodo))
+        .then(() => res.status(201).json({ id, ...newTodo }))
         .catch((error) => res.status(500).json(error));
     })
     .catch((error) => {
