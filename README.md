@@ -10,9 +10,9 @@ _techno used : React, NodeJS, Express.js, Sass, Jest/[Supertest](https://www.npm
 - One of the instructions was to host the frontend on Github page for the client to see it and follow the development, so I used [gh-pages](https://www.npmjs.com/package/gh-pages) npm package that let me build and deploy the application directly from the CLI.
 - I also choosed not to use pre-made CSS libraries like Bootstrap, because instructions said to keep the UI simple, and it also was a manner to show a bit of my CSS (SASS) skills.
 
-#### The Backend API is host on my private server : https://ata.mura.io/
+#### The Backend API is hosted on my private server : https://ata.mura.io/
 
-- I arleady have a private server for others projects, host my personnal website, and test things, so I choosed to use it to host the backend part of this project.
+- I arleady have a private server for others projects, hosting my personnal website, and testing things, so I choosed to use it to host the backend part of this project.
 - I used my own domain name to create a subdomain, link the API, and used NGINX to serve it.
 - I used [PM2](https://pm2.keymetrics.io/) npm package to run and monitor the API, and [UpTimeRobot](https://uptimerobot.com) to monitor the online availability.
 

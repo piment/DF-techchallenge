@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { AiFillCloseSquare } from 'react-icons/ai';
-const api_url = import.meta.env.VITE_API_URL;
+const api_url =
+  import.meta.env.MODE === 'development'
+    ? import.meta.env.VITE_API_URL
+    : 'https://ata.mura.io';
 
 function Modal({ show }) {
   const { showModal, setShowModal } = show;
   const [todo, setTodo] = useState({ title: '', desc: '' });
 
-  const handleChange = () => {
+  const handleChange = (e) => {
+    e.preventDefault();
     axios
       .post(api_url + `/api/todo`, todo)
       .then(() => {
@@ -18,10 +22,9 @@ function Modal({ show }) {
 
   return (
     <div className='Modal'>
+      
       <form className='Todo-card' onSubmit={handleChange}>
-        <span className='close'>
-          <AiFillCloseSquare onClick={() => setShowModal(false)} />
-        </span>
+      <h2>Create a new Todo</h2>
         <label htmlFor='title'>
           TITLE
           <input
@@ -45,7 +48,12 @@ function Modal({ show }) {
             placeholder='optionnal'
           ></textarea>
         </label>
-        <button type='submit'>CREATE NEW TODO</button>
+        <div className='button-set'>
+          <button type='submit' className='add'>Add</button>
+          <button type='button' className='cancel' onClick={() => setShowModal(false)}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

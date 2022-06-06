@@ -4,7 +4,7 @@ const cors = require('cors');
 const router = require('./routes');
 
 const app = express();
-app.use(cors(process.env.BACKEND_URL));
+app.use(cors(process.env.BACKEND_URL + process.env.PORT));
 app.use(express.json());
 app.use(router);
 

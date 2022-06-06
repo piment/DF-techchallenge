@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AiFillCloseSquare } from 'react-icons/ai';
-const api_url = import.meta.env.MODE === 'development' ? import.meta.env.VITE_API_URL : 'https://ata.mura.io';
+const api_url =
+  import.meta.env.MODE === 'development'
+    ? import.meta.env.VITE_API_URL
+    : 'https://ata.mura.io';
 
 function Todo() {
   const { id } = useParams();
@@ -28,32 +31,34 @@ function Todo() {
   }, []);
   return (
     todo && (
-      <div className='Todo-card'>
-        <span className='close'>
-          <AiFillCloseSquare onClick={() => navigate('/DF-techchallenge')} />
-        </span>
-        <label htmlFor='title'>
-          TITLE
-          <input
-            type='text'
-            name='title'
-            value={todo.title}
-            onChange={(e) => setTodo({ ...todo, title: e.target.value })}
-          />
-        </label>
-        <label htmlFor='desc'>
-          DESCRIPTION
-          <textarea
-            id='desc'
-            name='desc'
-            cols='10'
-            rows='10'
-            value={todo.desc}
-            onChange={(e) => setTodo({ ...todo, desc: e.target.value })}
-          ></textarea>
-        </label>
-
-          <button onClick={handleChange}>SAVE</button>
+      <div className="Modal">
+        <div className='Todo-card'>
+          <h3>Edit Todo</h3>
+          <label htmlFor='title'>
+            TITLE
+            <input
+              type='text'
+              name='title'
+              value={todo.title}
+              onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+            />
+          </label>
+          <label htmlFor='desc'>
+            DESCRIPTION
+            <textarea
+              id='desc'
+              name='desc'
+              cols='10'
+              rows='10'
+              value={todo.desc}
+              onChange={(e) => setTodo({ ...todo, desc: e.target.value })}
+            ></textarea>
+          </label>
+          <div className='button-set'>
+            <button className="add" onClick={handleChange}>SAVE</button>
+            <button className="cancel" onClick={() => navigate('/DF-techchallenge')}>CANCEL</button>
+          </div>
+        </div>
       </div>
     )
   );
